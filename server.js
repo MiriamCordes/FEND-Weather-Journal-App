@@ -18,12 +18,28 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
-
 // Initialize the main project folder
 app.use(express.static('website'));
 
 
 // Setup Server
-const port = 8000;
+const port = 8001;
 
 const server = app.listen(port, () => (console.log(`running on localhost: ${port}`)))
+
+// GET Route
+app.get('/all', function(req, res) {
+    res.send(projectData)
+})
+
+// POST Route
+app.post('/entry', function(req, res) {
+    const data = req.body;
+    const newEntry = {
+        temperature: data.temperature,
+        date: data.date,
+        userResponse: data.userResponse
+    }
+    projectData = newEntry;
+    res.send(projectData);
+})
